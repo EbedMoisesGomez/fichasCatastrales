@@ -1,0 +1,334 @@
+/*
+    Estilos del Index.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Roboto:ital@0;1&display=swap');
+/*
+font-family: 'Inter', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.contenedorPadreLogin {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.contenedorFormularioLogin {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #496ECD;
+}
+
+.contenedorImagenLogin {
+    width: 50%;
+    height: 100vh;
+    background-image: url(../assets/imagenDelLogin.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.titulosLogin {
+    width: 400px;
+    height: 200px;
+}
+
+.titulosLogin > h1, h2 {
+    color: white;
+    font-family: 'Inter', sans-serif
+}
+
+.titulosLogin > h1{
+    margin-top: 30px;
+    font-size: 64px;
+}
+
+.titulosLogin > h2{
+    font-size: 24px;
+}
+
+.divLogin {
+    width: 400px;
+    height: 400px;
+}
+
+.formLogin {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formLogin > div > label {
+    font-size: 20px;
+    position: relative;
+    top: 60px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+
+}
+
+.formLogin > div > input {
+    width: 367px;
+    padding: 15px;
+    margin-top: 70px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.formLogin > button {
+    width: 60px;
+    height: 50px;
+    margin-top: 60px;
+    background-color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button > img {
+    width: 15px;
+}
+
+
+/*
+    Estilos de Home.html
+*/
+
+.contenedorPadreHome {
+    width: 100%;
+    height: 100vh;
+    background-color: #373737;
+}
+
+.contenedoresHome {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.linkHome_1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #479DED;
+    border-radius: 30px;
+}
+
+.linkHome_1 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.linkHome_2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #1ACC76;
+    border-radius: 30px;
+}
+
+.linkHome_2 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.linkHome_3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #24BCC6;
+    border-radius: 30px;
+}
+
+.linkHome_3 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.linkHome_4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #068B8B;
+    border-radius: 30px;
+}
+
+.linkHome_4 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.linkHome_5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #751BD0;
+    border-radius: 30px;
+}
+
+.linkHome_5 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.linkHome_6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 250px;
+    background-color: #CF3A3A;
+    border-radius: 30px;
+}
+
+.linkHome_6 > span {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+
+
+/*
+    Estilos de Add.html
+*/
+
+
+
+.contenedorPadreAdd {
+    width: 100%;
+    height: 100vh;
+    background-color: #373737;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.backHomeAdd {
+    margin-top: 30px;
+    width: 90%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    
+}
+
+.backHomeAdd > button {
+    background-color: #46AFDC;
+    width: 130px;
+    height: 60px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    border: none;
+}
+
+.contenedorAdd {
+    width: 100%;
+    height: 85vh;
+}
+
+.contenedorAdd > form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.formAdd_1 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formAdd_1 > input {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.formAdd_1 > label {
+    position: relative;
+    top: 35px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.formAdd_2 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formAdd_2 > input {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.formAdd_2 > label {
+    position: relative;
+    top: 35px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.formAdd_2 > button {
+    margin-top: 65px;
+    padding: 10px;
+    border-radius: 20px;
+    width: 150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #696969;
+}
