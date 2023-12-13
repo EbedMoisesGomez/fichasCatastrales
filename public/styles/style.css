@@ -7,9 +7,18 @@
 font-family: 'Inter', sans-serif;
 font-family: 'Roboto', sans-serif;
 */
+
+table {
+    overflow-y: hidden;
+}
+
 * {
     margin: 0px;
     padding: 0px;
+}
+
+body {
+    background-color: #373737;
 }
 
 .contenedorPadreLogin {
@@ -331,4 +340,271 @@ button > img {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     color: #696969;
+}
+
+
+
+
+/*
+    Estilos de Files.html
+*/
+
+
+
+.contenedorPadreFiles {
+    width: 100%;
+    height: 100vh;
+    background-color: #373737;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedorBackHomeAndFilterFiles {
+    margin-top: 30px;
+    width: 90%;
+    height: 15vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contenedorBackHomeAndFilterFiles > button {
+    background-color: #46AFDC;
+    width: 130px;
+    height: 60px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    border: none;
+}
+
+.contenedorBackHomeAndFilterFiles > select {
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    padding: 12px;
+}
+
+.contenedorTableFiles {
+    width: 90%;
+    height: 500px;
+    overflow-y: auto; /* Agregamos esta propiedad para el desplazamiento vertical */
+}
+
+tr > th {
+    text-align: center;
+    background-color: #5C5C5C;
+    font-family: 'Inter', sans-serif;
+}
+
+th, td {
+    font-size: 20px;
+    width: 276px;
+    text-align: center;
+}
+
+.spanExport {
+    position: relative;
+    top: 0px;
+}
+
+tr:nth-child(even) {
+    background-color: #5C5C5C;
+    color: #ffffff;
+}
+
+tr:nth-child(odd) {
+    background-color: #7E7E7E;
+    color: #ffffff;
+}
+
+td > span {
+    position: relative;
+    top: 15px;
+}
+
+
+
+/*
+    Estilos de Search.html
+*/
+
+
+
+
+.contenedorPadreSearch {
+    background-color: #373737;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedorSearch {
+    width: 50%;
+    margin-top: 30px;
+}
+
+.contenedorBackHomeSearch {
+    height: 15vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedorBackHomeSearch > button {
+    background-color: #46AFDC;
+    width: 130px;
+    height: 60px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    border: none;
+}
+
+.formSearch {
+    width: 500px;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.formSearch > input {
+    width: 500px;
+    height: 50px;
+    background-color: #373737;
+    border: 0px;
+    border-bottom: white solid;
+}
+
+.formSearch > button {
+    background-color: #373737;
+    border: none;
+    position: relative;
+    right: 35px;
+}
+
+.formSearch > button > img {
+    width: 30px;
+}
+
+.contenedorFichaSearch {
+    background-color: white;
+    width: 100%;
+    height: 450px;
+    border-radius: 30px;
+    margin-top: 50px;
+}
+
+.contenedorEditSearch {
+    height: 225px;
+}
+
+.editSearch_1 {
+    width: 100%;
+    height: 112.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.editSearch_1 > input {
+    width: 40%;
+    padding: 12px;
+    margin-left: 50px;
+    border-radius: 20px;
+    border: solid 1px;
+    font-size: 18px;
+}
+
+.editSearch_1 > button {
+    background-color: #32B54E;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.editSearch_1 > button > img {
+    width: 20px;
+}
+
+.editSearch_2 {
+    width: 100%;
+    height: 112.5px;
+    display: flex;
+    align-items: center;
+}
+
+.editSearch_2 > input {
+    width: 84%;
+    padding: 12px;
+    margin-left: 50px;
+    border-radius: 20px;
+    border: solid 1px;
+    font-size: 18px;
+}
+
+.contenedorDataEditSearch {
+    height: 225px;
+}
+
+.contenedorDataSearchPare {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.contenedorDataSearchPare > input {
+    padding: 12px;
+    border-radius: 20px;
+    border: solid 1px;
+    width: 260px;
+    font-size: 18px;
+}
+
+
+
+/*
+    Estilos de Excel.html
+*/
+
+td > button {
+    background-color: #66CC7C;
+    border: none;
+    width: 70%;
+    height: 60px;
+}
+
+td > button > img {
+    width: 30px;
+}
+
+
+
+
+/*
+    Estilos de Export.html
+*/
+
+
+
+
+.exportBtnExport > img {
+    width: 30px;
 }
