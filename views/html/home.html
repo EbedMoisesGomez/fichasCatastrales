@@ -5,37 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Home</title>
+    <script>
+        function bloquearRetroceso() {
+            history.pushState(null, null, location.href);
+            window.onpopstate = function () {
+                history.go(1);
+            };
+        }
+    </script>
 </head>
 <body>
     <div class="contenedorPadreHome">
         <div class="contenedoresHome">
-            <div class="linkHome_1">
-                <img src="../assets/searchIcon.png" alt="Icono de Buscar">
+            <a href="/busqueda.html" class="linkHome_1">
+                <img src="/assets/searchIcon.png" alt="Icono de Buscar">
                 <span>Busqueda</span>
-            </div>
-            <div class="linkHome_2">
-                <img src="../assets/excelIcon.png" alt="Icono de Excel">
+            </a>
+            <a href="/excel.html" class="linkHome_2">
+                <img src="/assets/excelIcon.png" alt="Icono de Excel">
                 <span>Excel</span>
-            </div>
-            <div class="linkHome_3">
-                <img src="../assets/addIcon.png" alt="Icono de Agregar">
+            </a>
+            <a href="/agregar.html" class="linkHome_3">
+                <img src="/assets/addIcon.png" alt="Icono de Agregar">
                 <span>Agregar</span>
-            </div>
+            </a>
         </div>
         <div class="contenedoresHome">
-            <div class="linkHome_4">
-                <img src="../assets/fileIcon.png" alt="Icono de Archivos">
+            <a href="/fichas.html" class="linkHome_4">
+                <img src="/assets/fileIcon.png" alt="Icono de Archivos">
                 <span>Fichas</span>
-            </div>
-            <div class="linkHome_5">
-                <img src="../assets/exportIcon.png" alt="Icono de Exportar">
+            </a>
+            <a href="/exportar.html" class="linkHome_5">
+                <img src="/assets/exportIcon.png" alt="Icono de Exportar">
                 <span>Exportar</span>
-            </div>
-            <div class="linkHome_6">
-                <img src="../assets/logoutIcon.png" alt="Icono de Salir">
+            </a>
+            <a href="#" onclick="cerrarSesion()" class="linkHome_6">
+                <img src="/assets/logoutIcon.png" alt="Icono de Salir">
                 <span>Cerrar Sesion</span>
-            </div>
+            </a>
         </div>
     </div>
+    <script>
+        
+        function cerrarSesion() {
+            // Cambiar el valor de userConn a offline
+            fetch('/cerrarSesion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al cerrar sesión');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Redireccionar al index.html
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error(error);
+                // Manejar el error, si es necesario
+            });
+        }
+    </script>
 </body>
 </html>

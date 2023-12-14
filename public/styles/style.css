@@ -8,13 +8,17 @@ font-family: 'Inter', sans-serif;
 font-family: 'Roboto', sans-serif;
 */
 
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
 table {
     overflow-y: hidden;
 }
 
-* {
-    margin: 0px;
-    padding: 0px;
+a {
+    text-decoration: none;
 }
 
 body {
