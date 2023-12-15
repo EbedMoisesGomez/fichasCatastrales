@@ -10,15 +10,14 @@
 <body>
     <div class="contenedorPadreFiles">
         <div class="contenedorBackHomeAndFilterFiles">
-            <button><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</button>
+            <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir"></a>
                 <select id="filtro" onchange="mostrarSeleccion()">
-                <option value="seleccionar" selected>Seleccionar</option>
-                <option value="computo">Computo</option>
-                <option value="archivos">Archivos</option>
-                <option value="catastro">Catastro</option>
-                <option value="subidas">Subidas</option>
-                <option value="noSubidas">No Subidas</option>
-                <option value="inconsistencia">Inconsistencia</option>
+                <option value="Seleccionar" selected>Seleccionar</option>
+                <option value="Computo">Computo</option>
+                <option value="Catastro">Catastro</option>
+                <option value="Subidas">Subidas</option>
+                <option value="NoSubidas">No Subidas</option>
+                <option value="Inconsistencia">Inconsistencia</option>
                 </select>
 
         </div>
@@ -35,97 +34,6 @@
           </thead>
           <tbody>
             <!-- Aquí van tus datos, puedes copiar y pegar más filas según sea necesario -->
-            <tr>
-              <td><span class="spanExport">a</span></td>
-              <td><span class="spanExport">a</span></td>
-              <td><span class="spanExport">a</span></td>
-              <td><span class="spanExport">a</span></td>
-              <td><span class="spanExport">a</span></td>
-            </tr>
-            <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
                </tbody>
         </table>
     </div>
@@ -133,7 +41,49 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      <script>
+        // Función para actualizar la tabla
+        function actualizarTabla(filtro) {
+          // Obtén la referencia a tbody en tu tabla
+          var tabla = $('.table tbody');
       
+          // Vacía la tabla antes de agregar nuevos datos
+          tabla.empty();
+      
+          // Realiza la solicitud de datos según el filtro seleccionado
+          $.get('/files.html/data', { filtro: filtro }, function(data) {
+            // Itera sobre tus datos y crea las filas
+            data.forEach(function(ficha) {
+              var fila = $('<tr></tr>');
+              var celdas = [ficha.nombrePropietario, ficha.tipoActualizacion, ficha.claveCatastral, ficha.localidad, ficha.estado];
+      
+              // Llena cada celda en la fila
+              celdas.forEach(function(valor) {
+                fila.append('<td><span class="spanExport">' + valor + '</span></td>');
+              });
+      
+              // Agrega la fila a la tabla
+              tabla.append(fila);
+            });
+          });
+        }
+      
+        // Esta función se llama cuando la página se carga
+        $(document).ready(function() {
+          // Al cargar la página, mostrar todos los datos por defecto
+          actualizarTabla('Seleccionar');
+      
+          // Agrega un evento de cambio al elemento select
+          $('#filtro').on('change', function() {
+            // Obtén el valor seleccionado
+            var filtro = $(this).val();
+      
+            // Actualiza la tabla según el nuevo filtro seleccionado
+            actualizarTabla(filtro);
+          });
+        });
+      </script>
     </div>
 </body>
 </html>

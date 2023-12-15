@@ -17,8 +17,9 @@ table {
     overflow-y: hidden;
 }
 
-a {
-    text-decoration: none;
+input {
+    outline: none;
+    font-size: 20px;
 }
 
 body {
@@ -140,6 +141,7 @@ button > img {
     height: 250px;
     background-color: #479DED;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_1 > span {
@@ -158,6 +160,7 @@ button > img {
     height: 250px;
     background-color: #1ACC76;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_2 > span {
@@ -176,6 +179,7 @@ button > img {
     height: 250px;
     background-color: #24BCC6;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_3 > span {
@@ -194,6 +198,7 @@ button > img {
     height: 250px;
     background-color: #068B8B;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_4 > span {
@@ -212,6 +217,7 @@ button > img {
     height: 250px;
     background-color: #751BD0;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_5 > span {
@@ -230,6 +236,7 @@ button > img {
     height: 250px;
     background-color: #CF3A3A;
     border-radius: 30px;
+    text-decoration: none;
 }
 
 .linkHome_6 > span {
@@ -265,7 +272,7 @@ button > img {
     
 }
 
-.backHomeAdd > button {
+.backHomeAdd > a {
     background-color: #46AFDC;
     width: 130px;
     height: 60px;
@@ -277,6 +284,7 @@ button > img {
     font-family: 'Inter', sans-serif;
     color: white;
     border: none;
+    text-decoration: none;
 }
 
 .contenedorAdd {
@@ -344,6 +352,7 @@ button > img {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     color: #696969;
+    cursor: pointer;
 }
 
 
@@ -373,9 +382,9 @@ button > img {
     justify-content: space-between;
 }
 
-.contenedorBackHomeAndFilterFiles > button {
+.contenedorBackHomeAndFilterFiles > a {
     background-color: #46AFDC;
-    width: 130px;
+    width: 80px;
     height: 60px;
     border-radius: 30px;
     display: flex;
@@ -385,6 +394,7 @@ button > img {
     font-family: 'Inter', sans-serif;
     color: white;
     border: none;
+    text-decoration: none;
 }
 
 .contenedorBackHomeAndFilterFiles > select {
@@ -406,7 +416,7 @@ tr > th {
 }
 
 th, td {
-    font-size: 20px;
+    font-size: 16px;
     width: 276px;
     text-align: center;
 }
@@ -461,7 +471,7 @@ td > span {
     align-items: center;
 }
 
-.contenedorBackHomeSearch > button {
+.contenedorBackHomeSearch > a {
     background-color: #46AFDC;
     width: 130px;
     height: 60px;
@@ -473,6 +483,7 @@ td > span {
     font-family: 'Inter', sans-serif;
     color: white;
     border: none;
+    text-decoration: none;
 }
 
 .formSearch {
@@ -489,6 +500,7 @@ td > span {
     background-color: #373737;
     border: 0px;
     border-bottom: white solid;
+    color: white;
 }
 
 .formSearch > button {
@@ -496,7 +508,12 @@ td > span {
     border: none;
     position: relative;
     right: 35px;
+    cursor: pointer;
 }
+
+#botonEditar {
+        transition: background-color 0.3s ease-in-out;
+    }
 
 .formSearch > button > img {
     width: 30px;

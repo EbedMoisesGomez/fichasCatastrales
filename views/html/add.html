@@ -9,31 +9,76 @@
 <body>
     <div class="contenedorPadreAdd">
         <div class="backHomeAdd">
-            <button><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</button>
+            <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</a>
         </div>
         <div class="contenedorAdd">
-            <form action="">
-            <div class="formAdd_1">
-                <label for="nombreProp">Nombre del Propietario</label>
-                <input type="text" autocomplete="off" id="nombreProp">
-                <label for="claveCatastral">Clave Catastral</label>
-                <input type="text" autocomplete="off" id="claveCatastral">
-                <label for="entregadoPor">Entregado Por</label>
-                <input type="text" autocomplete="off" id="entregadoPor">
-                <label for="estado">Estado</label>
-                <input type="text" autocomplete="off" id="estado">
-            </div>
-            <div class="formAdd_2">
-                <label for="tipoDeActualizacion">Tipo de Actualizacion</label>
-                <input type="text" autocomplete="off" id="tipoDeActualizacion">
-                <label for="ubicacion">Ubicacion</label>
-                <input type="text" autocomplete="off" id="ubicacion">
-                <label for="recibidoPor">Recibido Por</label>
-                <input type="text" autocomplete="off" id="recibidoPor">
-                <button>Agregar<img src="../assets/entrarIcon.png" alt="Icono para Enviar"></button>
-            </div>
+            <form action="/guardarDatos" method="POST" onsubmit="return submitForm()">
+                <div class="formAdd_1">
+                    <label for="nombrePropietario">Nombre del Propietario</label>
+                    <input type="text" autocomplete="off" id="nombrePropietario" name="nombrePropietario">
+                    <label for="claveCatastral">Clave Catastral</label>
+                    <input type="text" autocomplete="off" id="claveCatastral" name="claveCatastral">
+                    <label for="entregadoPor">Entregado Por</label>
+                    <input type="text" autocomplete="off" id="entregadoPor" name="entregadoPor">
+                    <label for="estado">Estado</label>
+                    <input type="text" autocomplete="off" id="estado" name="estado">
+                </div>
+                <div class="formAdd_2">
+                    <label for="tipoActualizacion">Tipo de Actualizacion</label>
+                    <input type="text" autocomplete="off" id="tipoActualizacion" name="tipoActualizacion">
+                    <label for="localidad">Ubicacion</label>
+                    <input type="text" autocomplete="off" id="localidad" name="localidad">
+                    <label for="recibidoPor">Recibido Por</label>
+                    <input type="text" autocomplete="off" id="recibidoPor" name="recibidoPor">
+                    <button type="submit">Agregar<img src="../assets/entrarIcon.png" alt="Icono para Enviar"></button>
+                </div>
             </form>
         </div>
     </div>
+
+    <script>
+        function submitForm() {
+            var nombrePropietario = document.getElementById('nombrePropietario').value;
+            var tipoActualizacion = document.getElementById('tipoActualizacion').value;
+            var claveCatastral = document.getElementById('claveCatastral').value;
+            var localidad = document.getElementById('localidad').value;
+            var estado = document.getElementById('estado').value;
+            var entregadoPor = document.getElementById('entregadoPor').value;
+            var recibidoPor = document.getElementById('recibidoPor').value;
+    
+            // Establecer valores predeterminados
+            var subirExcel = 'NO';
+            var paradero = 'COMPUTO';
+    
+            var data = "nombrePropietario=" + encodeURIComponent(nombrePropietario) +
+                "&tipoActualizacion=" + encodeURIComponent(tipoActualizacion) +
+                "&claveCatastral=" + encodeURIComponent(claveCatastral) +
+                "&localidad=" + encodeURIComponent(localidad) +
+                "&estado=" + encodeURIComponent(estado) +
+                "&entregadoPor=" + encodeURIComponent(entregadoPor) +
+                "&recibidoPor=" + encodeURIComponent(recibidoPor) +
+                "&subirExcel=" + encodeURIComponent(subirExcel) +
+                "&paradero=" + encodeURIComponent(paradero);
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/guardarDatos", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        alert('Datos ingresados con éxito');
+                        location.reload();
+                    } else {
+                        alert('Error al ingresar los datos. Por favor, inténtelo de nuevo.');
+                    }
+                }
+            };
+    
+            xhr.send(data);
+    
+            return false;
+        }
+    </script>
 </body>
 </html>

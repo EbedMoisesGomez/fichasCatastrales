@@ -1,45 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <title>Search</title>
 </head>
+
 <body>
     <div class="contenedorPadreSearch">
         <div class="contenedorSearch">
             <div class="contenedorBackHomeSearch">
-                <button><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</button>
-                <form action="" class="formSearch">
-                    <input type="search">
-                    <button><img src="../assets/searchIcon.png" alt="Icono de Busqueda"></button>
+                <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</a>
+                <form id="searchForm" onsubmit="buscarConEnter(event)" class="formSearch">
+                    <input type="search" id="claveCatastralSearch" name="claveCatastral" placeholder="Ingresa la clave" autocomplete="off">
+                    <button type="submit"><img src="../assets/searchIcon.png" alt="Icono de Busqueda"></button>
                 </form>
             </div>
             <div class="contenedorFichaSearch">
-                <form action="">
-                <div class="contenedorEditSearch">
-                    <div class="editSearch_1">
-                        <input type="text" autocomplete="off" placeholder="Clave Catastral">
-                        <button><img src="../assets/pencilIcon.png" alt="Icono de Lapiz"></button>
+                <form id="editForm">
+                    <div class="contenedorEditSearch">
+                        <div class="editSearch_1">
+                            <input type="text" id="claveCatastral" autocomplete="off" placeholder="Clave Catastral" readonly>
+                            <button id="botonEditar" type="button" onclick="editarInformacion()"><img src="../assets/pencilIcon.png" alt="Icono de Edicion"></button>
+                        </div>
+                        <div class="editSearch_2">
+                            <input type="text" id="nombrePropietario" autocomplete="off" placeholder="Nombre del Propietario" readonly>
+                        </div>
                     </div>
-                    <div class="editSearch_2">
-                        <input type="text" autocomplete="off" placeholder="Nombre del Propietario">
+                    <div class="contenedorDataEditSearch">
+                        <div class="contenedorDataSearchPare">
+                            <input type="text" id="paradero" autocomplete="off" placeholder="Paradero" readonly>
+                            <input type="text" id="localidad" autocomplete="off" placeholder="Ubicacion del Solar" readonly>
+                        </div>
+                        <div class="contenedorDataSearchPare">
+                            <input type="text" id="estado" autocomplete="off" placeholder="Estado" readonly>
+                            <input type="text" id="tipoActualizacion" autocomplete="off" placeholder="Tipo de Actualizacion" readonly>
+                        </div>
                     </div>
-                </div>
-                <div class="contenedorDataEditSearch">
-                    <div class="contenedorDataSearchPare">
-                        <input type="text" autocomplete="off" placeholder="Paradero">
-                        <input type="text" autocomplete="off" placeholder="Ubicacion del Solar">
-                    </div>
-                    <div class="contenedorDataSearchPare">
-                        <input type="text" autocomplete="off" placeholder="Estado">
-                        <input type="text" autocomplete="off" placeholder="Tipo de Actualizacion">
-                    </div>
-                </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Variable para almacenar el estado del botón (editando o no)
+        let editando = false;
+
+        function buscarConEnter(event) {
+            event.preventDefault();
+
+            // Obtener el valor del campo claveCatastral
+            const claveCatastral = document.getElementById('claveCatastralSearch').value;
+
+            // Hacer una solicitud AJAX para obtener los datos del servidor
+            fetch(`/search?claveCatastral=${claveCatastral}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('No se encontraron resultados.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Mostrar los datos en los campos del formulario
+                    document.getElementById('claveCatastral').value = data.claveCatastral || '';
+                    document.getElementById('nombrePropietario').value = data.nombrePropietario || '';
+                    document.getElementById('paradero').value = data.paradero || '';
+                    document.getElementById('localidad').value = data.localidad || '';
+                    document.getElementById('estado').value = data.estado || '';
+                    document.getElementById('tipoActualizacion').value = data.tipoActualizacion || '';
+
+                    // Agrega más líneas para otros campos...
+                })
+                .catch(error => {
+                    alert(error.message); // Mostrar una alerta en caso de error
+                });
+        }
+
+        function editarInformacion() {
+            // Obtener los elementos de entrada
+            const claveCatastralInput = document.getElementById('claveCatastral');
+            const nombrePropietarioInput = document.getElementById('nombrePropietario');
+            const paraderoInput = document.getElementById('paradero');
+            const localidadInput = document.getElementById('localidad');
+            const estadoInput = document.getElementById('estado');
+            const tipoActualizacionInput = document.getElementById('tipoActualizacion');
+
+            // Obtener los valores actuales
+            const claveCatastralActual = claveCatastralInput.value;
+            const nombrePropietarioActual = nombrePropietarioInput.value;
+            const paraderoActual = paraderoInput.value;
+            const localidadActual = localidadInput.value;
+            const estadoActual = estadoInput.value;
+            const tipoActualizacionActual = tipoActualizacionInput.value;
+
+            // Cambiar el estado de editando
+            editando = !editando;
+
+            if (editando) {
+                // Entrar en modo de edición
+                claveCatastralInput.removeAttribute('readonly');
+                nombrePropietarioInput.removeAttribute('readonly');
+                paraderoInput.removeAttribute('readonly');
+                localidadInput.removeAttribute('readonly');
+                estadoInput.removeAttribute('readonly');
+                tipoActualizacionInput.removeAttribute('readonly');
+
+                // Cambiar el color del botón a #CF3A3A con una transición suave
+                const botonEditar = document.getElementById('botonEditar');
+                botonEditar.style.backgroundColor = '#CF3A3A';
+
+                // Cambiar la imagen del icono a una nueva dirección
+                botonEditar.innerHTML = '<img src="../assets/closeIcon.png" alt="Icono Cerrar Edicion">';
+            } else {
+                // Salir del modo de edición
+                claveCatastralInput.setAttribute('readonly', true);
+                nombrePropietarioInput.setAttribute('readonly', true);
+                paraderoInput.setAttribute('readonly', true);
+                localidadInput.setAttribute('readonly', true);
+                estadoInput.setAttribute('readonly', true);
+                tipoActualizacionInput.setAttribute('readonly', true);
+
+                // Actualizar los valores en la base de datos
+                actualizarValorEnBaseDeDatos('claveCatastral', claveCatastralActual);
+                actualizarValorEnBaseDeDatos('nombrePropietario', nombrePropietarioActual);
+                actualizarValorEnBaseDeDatos('paradero', paraderoActual);
+                actualizarValorEnBaseDeDatos('localidad', localidadActual);
+                actualizarValorEnBaseDeDatos('estado', estadoActual);
+                actualizarValorEnBaseDeDatos('tipoActualizacion', tipoActualizacionActual);
+
+                // Cambiar el color del botón de nuevo a su estado original con transición
+                const botonEditar = document.getElementById('botonEditar');
+                botonEditar.style.backgroundColor = '#32B54E'; // Deja que se aplique el estilo original definido en tu hoja de estilos
+
+                // Restaurar la imagen original del icono
+                botonEditar.innerHTML = '<img src="../assets/pencilIcon.png" alt="Icono de Edicion">';
+            }
+        }
+
+        function actualizarValorEnBaseDeDatos(campo, nuevoValor) {
+    // Obtener los elementos de entrada
+    const claveCatastralInput = document.getElementById('claveCatastral');
+    const nombrePropietarioInput = document.getElementById('nombrePropietario');
+    const paraderoInput = document.getElementById('paradero');
+    const localidadInput = document.getElementById('localidad');
+    const estadoInput = document.getElementById('estado');
+    const tipoActualizacionInput = document.getElementById('tipoActualizacion');
+
+    // Obtener los valores actuales
+    const claveCatastralActual = claveCatastralInput.value;
+    const nombrePropietarioActual = nombrePropietarioInput.value;
+    const paraderoActual = paraderoInput.value;
+    const localidadActual = localidadInput.value;
+    const estadoActual = estadoInput.value;
+    const tipoActualizacionActual = tipoActualizacionInput.value;
+
+    fetch('/actualizar-dato', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            claveCatastral: claveCatastralActual,
+            nombrePropietario: nombrePropietarioActual,
+            paradero: paraderoActual,
+            localidad: localidadActual,
+            estado: estadoActual,
+            tipoActualizacion: tipoActualizacionActual,
+            // Agrega más campos según sea necesario...
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Dato actualizado en la base de datos:', data);
+    })
+    .catch(error => {
+        console.error('Error al actualizar el dato en la base de datos:', error);
+    });
+}
+
+    </script>
+
 </body>
+
 </html>
