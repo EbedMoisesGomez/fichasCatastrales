@@ -1,4 +1,3 @@
-// ----- Configuración y conexión a la base de datos -----
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
@@ -26,8 +25,15 @@ db.connect((err) => {
 // ----- Configuración de middleware -----
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
+const cors = require('cors');
+app.use(cors());
+
 
 // ----- Rutas para páginas HTML -----
+
+
+app.use(bodyParser.json()); // Agrega esta línea antes de tus rutas
+
 
 // Página de inicio
 app.get('/', (req, res) => {
@@ -68,9 +74,13 @@ app.get('/search.html', (req, res) => {
 
 // Búsqueda por clave catastral
 app.all('/search', (req, res) => {
-    const claveCatastral = req.body.claveCatastral || req.query.claveCatastral;
+    const capturaClaveCatastral = req.query.capturaClaveCatastral || req.body.capturaClaveCatastral;
 
-    db.query('SELECT * FROM fichascatastrales WHERE claveCatastral = ?', [claveCatastral], (err, result) => {
+    if (!capturaClaveCatastral) {
+        return res.status(400).json({ error: 'La clave catastral es requerida.' });
+    }
+
+    db.query('SELECT * FROM fichascatastrales WHERE claveCatastral = ?', [capturaClaveCatastral], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error al obtener datos de la base de datos.' });
@@ -84,11 +94,12 @@ app.all('/search', (req, res) => {
     });
 });
 
+
 // Renderizar resultados de búsqueda
 app.get('/search-results', (req, res) => {
-    const claveCatastral = req.query.claveCatastral;
+    const claveSearchCatastral = req.query.capturaClaveCatastral;
 
-    db.query('SELECT * FROM fichascatastrales WHERE claveCatastral = ?', [claveCatastral], (err, result) => {
+    db.query('SELECT * FROM fichascatastrales WHERE claveCatastral = ?', [claveSearchCatastral], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Error al obtener datos de la base de datos.' });
@@ -200,71 +211,42 @@ app.get('/files.html/data', (req, res) => {
 
 // ----- Funcionalidades relacionadas con la inserción de nuevos datos -----
 
-// Guardar nuevos datos
-app.post('/guardarDatos', (req, res) => {
-    const {
-        nombrePropietario,
-        tipoActualizacion,
-        claveCatastral,
-        localidad,
-        estado,
-        entregadoPor,
-        recibidoPor,
-        subirExcel,
-        paradero
-    } = req.body;
+// ----- Funcionalidades relacionadas con la actualización de datos -----
 
-    if (!nombrePropietario || !tipoActualizacion || !claveCatastral || !localidad || !estado || !entregadoPor || !recibidoPor || !subirExcel || !paradero) {
-        return res.status(400).send('Todos los campos son obligatorios. Por favor, completa el formulario.');
-    }
+app.post('/actualizarDatos', (req, res) => {
+    try {
+        const claveBuscada = req.body.claveBuscada;
+        console.log('Datos recibidos en el servidor:', req.body);
+        console.log('Valor de claveBuscada antes de la actualización:', claveBuscada);  // Agregamos un log aquí
+        const dato_1 = req.body.dato_1;
+        const dato_2 = req.body.dato_2;
+        const dato_3 = req.body.dato_3;
+        const dato_4 = req.body.dato_4;
+        const dato_5 = req.body.dato_5;
+        const dato_6 = req.body.dato_6;
 
-    const subirExcelDefault = 'NO';
-    const paraderoDefault = 'COMPUTO';
+        // Actualizar la fila en la base de datos
+        const sql = `UPDATE fichascatastrales SET
+                     claveCatastral = ?,
+                     nombrePropietario = ?,
+                     paradero = ?,
+                     localidad = ?,
+                     estado = ?,
+                     tipoActualizacion = ?
+                     WHERE claveCatastral = ?`;
 
-    db.query(
-        'INSERT INTO fichasCatastrales (nombrePropietario, tipoActualizacion, claveCatastral, localidad, estado, entregadoPor, recibidoPor, subirExcel, paradero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        [nombrePropietario, tipoActualizacion, claveCatastral, localidad, estado, entregadoPor, recibidoPor, subirExcel || subirExcelDefault, paradero || paraderoDefault],
-        (err, result) => {
+        db.query(sql, [dato_1, dato_2, dato_3, dato_4, dato_5, dato_6, claveBuscada], (err, result) => {
             if (err) {
-                console.error(err);
-                return res.status(500).send('Error al ingresar los datos en la base de datos.');
+                throw err;
             }
-
-            console.log('Datos ingresados con éxito');
-            return res.status(200).send('Datos ingresados con éxito.');
-        }
-    );
-});
-
-
-// Ruta para actualizar datos
-app.post('/actualizar-dato', (req, res) => {
-    const { claveCatastral, nombrePropietario, paradero, localidad, estado, tipoActualizacion } = req.body;
-
-    if (!claveCatastral) {
-        return res.status(400).json({ error: 'Se requiere la clave catastral y al menos un campo adicional para la actualización.' });
+            console.log(`Datos actualizados para la clave ${claveBuscada}`);
+            res.send('Datos actualizados correctamente');
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al procesar la solicitud');
     }
-
-    // Construye tu consulta o llamada a la API para actualizar los datos en la base de datos.
-    // Utiliza los valores proporcionados en los parámetros.
-
-    // Ejemplo:
-    db.query('UPDATE fichascatastrales SET nombrePropietario = ?, paradero = ?, localidad = ?, estado = ?, tipoActualizacion = ? WHERE claveCatastral = ?',
-        [nombrePropietario, paradero, localidad, estado, tipoActualizacion, claveCatastral],
-        (err, result) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Error al actualizar los datos en la base de datos.' });
-            }
-
-            console.log('Datos actualizados en la base de datos:', result);
-            res.json({ success: true });
-        }
-    );
 });
-
-
-
 
 
 

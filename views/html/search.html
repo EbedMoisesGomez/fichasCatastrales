@@ -14,29 +14,29 @@
             <div class="contenedorBackHomeSearch">
                 <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</a>
                 <form id="searchForm" onsubmit="buscarConEnter(event)" class="formSearch">
-                    <input type="search" id="claveCatastralSearch" name="claveCatastral" placeholder="Ingresa la clave" autocomplete="off">
+                    <input type="search" id="capturaClaveCatastral" name="capturaClaveCatastral" placeholder="Ingresa la clave" autocomplete="off">
                     <button type="submit"><img src="../assets/searchIcon.png" alt="Icono de Busqueda"></button>
-                </form>
+                </form>                
             </div>
             <div class="contenedorFichaSearch">
                 <form id="editForm">
                     <div class="contenedorEditSearch">
                         <div class="editSearch_1">
-                            <input type="text" id="claveCatastral" autocomplete="off" placeholder="Clave Catastral" readonly>
+                            <input type="text" id="claveModificar" autocomplete="off" placeholder="Clave Catastral" readonly>
                             <button id="botonEditar" type="button" onclick="editarInformacion()"><img src="../assets/pencilIcon.png" alt="Icono de Edicion"></button>
                         </div>
                         <div class="editSearch_2">
-                            <input type="text" id="nombrePropietario" autocomplete="off" placeholder="Nombre del Propietario" readonly>
+                            <input type="text" id="nombrePropietarioModificar" autocomplete="off" placeholder="Nombre del Propietario" readonly>
                         </div>
                     </div>
                     <div class="contenedorDataEditSearch">
                         <div class="contenedorDataSearchPare">
-                            <input type="text" id="paradero" autocomplete="off" placeholder="Paradero" readonly>
-                            <input type="text" id="localidad" autocomplete="off" placeholder="Ubicacion del Solar" readonly>
+                            <input type="text" id="paraderoModificar" autocomplete="off" placeholder="Paradero" readonly>
+                            <input type="text" id="localidadModificar" autocomplete="off" placeholder="Ubicacion del Solar" readonly>
                         </div>
                         <div class="contenedorDataSearchPare">
-                            <input type="text" id="estado" autocomplete="off" placeholder="Estado" readonly>
-                            <input type="text" id="tipoActualizacion" autocomplete="off" placeholder="Tipo de Actualizacion" readonly>
+                            <input type="text" id="estadoModificar" autocomplete="off" placeholder="Estado" readonly>
+                            <input type="text" id="tipoActualizacionModificar" autocomplete="off" placeholder="Tipo de Actualizacion" readonly>
                         </div>
                     </div>
                 </form>
@@ -45,143 +45,99 @@
     </div>
 
     <script>
-        // Variable para almacenar el estado del botón (editando o no)
-        let editando = false;
+  let editando = false;
+let claveBuscada;
 
-        function buscarConEnter(event) {
-            event.preventDefault();
+function buscarConEnter(event) {
+    event.preventDefault();
+    claveBuscada = document.getElementById('capturaClaveCatastral').value;
+    console.log('Valor de claveBuscada al buscar:', claveBuscada);  // Agregamos un log aquí
 
-            // Obtener el valor del campo claveCatastral
-            const claveCatastral = document.getElementById('claveCatastralSearch').value;
-
-            // Hacer una solicitud AJAX para obtener los datos del servidor
-            fetch(`/search?claveCatastral=${claveCatastral}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('No se encontraron resultados.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Mostrar los datos en los campos del formulario
-                    document.getElementById('claveCatastral').value = data.claveCatastral || '';
-                    document.getElementById('nombrePropietario').value = data.nombrePropietario || '';
-                    document.getElementById('paradero').value = data.paradero || '';
-                    document.getElementById('localidad').value = data.localidad || '';
-                    document.getElementById('estado').value = data.estado || '';
-                    document.getElementById('tipoActualizacion').value = data.tipoActualizacion || '';
-
-                    // Agrega más líneas para otros campos...
-                })
-                .catch(error => {
-                    alert(error.message); // Mostrar una alerta en caso de error
-                });
+    fetch(`/search?capturaClaveCatastral=${claveBuscada}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('No se encontraron resultados.');
         }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('claveModificar').value = data.claveCatastral || '';
+        document.getElementById('nombrePropietarioModificar').value = data.nombrePropietario || '';
+        document.getElementById('paraderoModificar').value = data.paradero || '';
+        document.getElementById('localidadModificar').value = data.localidad || '';
+        document.getElementById('estadoModificar').value = data.estado || '';
+        document.getElementById('tipoActualizacionModificar').value = data.tipoActualizacion || '';
+      })
+      .catch(error => {
+        console.error('Error en búsqueda:', error);
+        alert(error.message);
+      });
+  }
 
-        function editarInformacion() {
-            // Obtener los elementos de entrada
-            const claveCatastralInput = document.getElementById('claveCatastral');
-            const nombrePropietarioInput = document.getElementById('nombrePropietario');
-            const paraderoInput = document.getElementById('paradero');
-            const localidadInput = document.getElementById('localidad');
-            const estadoInput = document.getElementById('estado');
-            const tipoActualizacionInput = document.getElementById('tipoActualizacion');
+  function editarInformacion() {
+  console.log('Valor de claveBuscada al editar:', claveBuscada);  // Agregamos un log aquí
+    const claveCatastralInput = document.getElementById('claveModificar');
+    const nombrePropietarioInput = document.getElementById('nombrePropietarioModificar');
+    const paraderoInput = document.getElementById('paraderoModificar');
+    const localidadInput = document.getElementById('localidadModificar');
+    const estadoInput = document.getElementById('estadoModificar');
+    const tipoActualizacionInput = document.getElementById('tipoActualizacionModificar');
 
-            // Obtener los valores actuales
-            const claveCatastralActual = claveCatastralInput.value;
-            const nombrePropietarioActual = nombrePropietarioInput.value;
-            const paraderoActual = paraderoInput.value;
-            const localidadActual = localidadInput.value;
-            const estadoActual = estadoInput.value;
-            const tipoActualizacionActual = tipoActualizacionInput.value;
+    editando = !editando;
 
-            // Cambiar el estado de editando
-            editando = !editando;
+    if (editando) {
+      claveCatastralInput.removeAttribute('readonly');
+      nombrePropietarioInput.removeAttribute('readonly');
+      paraderoInput.removeAttribute('readonly');
+      localidadInput.removeAttribute('readonly');
+      estadoInput.removeAttribute('readonly');
+      tipoActualizacionInput.removeAttribute('readonly');
 
-            if (editando) {
-                // Entrar en modo de edición
-                claveCatastralInput.removeAttribute('readonly');
-                nombrePropietarioInput.removeAttribute('readonly');
-                paraderoInput.removeAttribute('readonly');
-                localidadInput.removeAttribute('readonly');
-                estadoInput.removeAttribute('readonly');
-                tipoActualizacionInput.removeAttribute('readonly');
+      const botonEditar = document.getElementById('botonEditar');
+      botonEditar.style.backgroundColor = '#CF3A3A';
+      botonEditar.innerHTML = '<img src="../assets/closeIcon.png" alt="Icono Cerrar Edicion">';
+    } else {
+      const botonEditar = document.getElementById('botonEditar');
+      botonEditar.style.backgroundColor = '#32B54E';
+      botonEditar.innerHTML = '<img src="../assets/pencilIcon.png" alt="Icono Cerrar Edicion">';
+      const claveBuscada = document.getElementById('capturaClaveCatastral').value;
+      const dato_1 = claveCatastralInput.value;
+      const dato_2 = nombrePropietarioInput.value;
+      const dato_3 = paraderoInput.value;
+      const dato_4 = localidadInput.value;
+      const dato_5 = estadoInput.value;
+      const dato_6 = tipoActualizacionInput.value;
 
-                // Cambiar el color del botón a #CF3A3A con una transición suave
-                const botonEditar = document.getElementById('botonEditar');
-                botonEditar.style.backgroundColor = '#CF3A3A';
+      // Construir el objeto de datos
+      const datos = {
+        claveBuscada: claveBuscada,
+        dato_1: dato_1,
+        dato_2: dato_2,
+        dato_3: dato_3,
+        dato_4: dato_4,
+        dato_5: dato_5,
+        dato_6: dato_6,
+      };
+      
 
-                // Cambiar la imagen del icono a una nueva dirección
-                botonEditar.innerHTML = '<img src="../assets/closeIcon.png" alt="Icono Cerrar Edicion">';
-            } else {
-                // Salir del modo de edición
-                claveCatastralInput.setAttribute('readonly', true);
-                nombrePropietarioInput.setAttribute('readonly', true);
-                paraderoInput.setAttribute('readonly', true);
-                localidadInput.setAttribute('readonly', true);
-                estadoInput.setAttribute('readonly', true);
-                tipoActualizacionInput.setAttribute('readonly', true);
+      fetch('http://localhost:3000/actualizarDatos', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ claveBuscada, dato_1, dato_2, dato_3, dato_4, dato_5, dato_6 }),
+})
 
-                // Actualizar los valores en la base de datos
-                actualizarValorEnBaseDeDatos('claveCatastral', claveCatastralActual);
-                actualizarValorEnBaseDeDatos('nombrePropietario', nombrePropietarioActual);
-                actualizarValorEnBaseDeDatos('paradero', paraderoActual);
-                actualizarValorEnBaseDeDatos('localidad', localidadActual);
-                actualizarValorEnBaseDeDatos('estado', estadoActual);
-                actualizarValorEnBaseDeDatos('tipoActualizacion', tipoActualizacionActual);
 
-                // Cambiar el color del botón de nuevo a su estado original con transición
-                const botonEditar = document.getElementById('botonEditar');
-                botonEditar.style.backgroundColor = '#32B54E'; // Deja que se aplique el estilo original definido en tu hoja de estilos
+// Agregamos console.log para rastrear los datos
+console.log('Datos enviados al servidor:', datos);
+    }
+  }
+</script>
 
-                // Restaurar la imagen original del icono
-                botonEditar.innerHTML = '<img src="../assets/pencilIcon.png" alt="Icono de Edicion">';
-            }
-        }
 
-        function actualizarValorEnBaseDeDatos(campo, nuevoValor) {
-    // Obtener los elementos de entrada
-    const claveCatastralInput = document.getElementById('claveCatastral');
-    const nombrePropietarioInput = document.getElementById('nombrePropietario');
-    const paraderoInput = document.getElementById('paradero');
-    const localidadInput = document.getElementById('localidad');
-    const estadoInput = document.getElementById('estado');
-    const tipoActualizacionInput = document.getElementById('tipoActualizacion');
-
-    // Obtener los valores actuales
-    const claveCatastralActual = claveCatastralInput.value;
-    const nombrePropietarioActual = nombrePropietarioInput.value;
-    const paraderoActual = paraderoInput.value;
-    const localidadActual = localidadInput.value;
-    const estadoActual = estadoInput.value;
-    const tipoActualizacionActual = tipoActualizacionInput.value;
-
-    fetch('/actualizar-dato', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            claveCatastral: claveCatastralActual,
-            nombrePropietario: nombrePropietarioActual,
-            paradero: paraderoActual,
-            localidad: localidadActual,
-            estado: estadoActual,
-            tipoActualizacion: tipoActualizacionActual,
-            // Agrega más campos según sea necesario...
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Dato actualizado en la base de datos:', data);
-    })
-    .catch(error => {
-        console.error('Error al actualizar el dato en la base de datos:', error);
-    });
-}
 
     </script>
-
-</body>
+</body> 
 
 </html>
