@@ -12,7 +12,7 @@
             <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</a>
         </div>
         <div class="contenedorAdd">
-            <form action="/guardarDatos" method="POST" onsubmit="return submitForm()">
+            <form id="myForm" onsubmit="return submitForm()">
                 <div class="formAdd_1">
                     <label for="nombrePropietario">Nombre del Propietario</label>
                     <input type="text" autocomplete="off" id="nombrePropietario" name="nombrePropietario">
@@ -46,23 +46,21 @@
             var entregadoPor = document.getElementById('entregadoPor').value;
             var recibidoPor = document.getElementById('recibidoPor').value;
     
-            // Establecer valores predeterminados
-            var subirExcel = 'NO';
-            var paradero = 'COMPUTO';
-    
-            var data = "nombrePropietario=" + encodeURIComponent(nombrePropietario) +
-                "&tipoActualizacion=" + encodeURIComponent(tipoActualizacion) +
-                "&claveCatastral=" + encodeURIComponent(claveCatastral) +
-                "&localidad=" + encodeURIComponent(localidad) +
-                "&estado=" + encodeURIComponent(estado) +
-                "&entregadoPor=" + encodeURIComponent(entregadoPor) +
-                "&recibidoPor=" + encodeURIComponent(recibidoPor) +
-                "&subirExcel=" + encodeURIComponent(subirExcel) +
-                "&paradero=" + encodeURIComponent(paradero);
+            var data = {
+                nombrePropietario,
+                tipoActualizacion,
+                claveCatastral,
+                localidad,
+                estado,
+                entregadoPor,
+                recibidoPor,
+                subirExcel: 'NO',
+                paradero: 'COMPUTO'
+            };
     
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/guardarDatos", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-Type", "application/json");
     
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -75,10 +73,12 @@
                 }
             };
     
-            xhr.send(data);
+            xhr.send(JSON.stringify(data));
     
             return false;
         }
     </script>
+    
+    
 </body>
 </html>

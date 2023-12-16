@@ -23,17 +23,13 @@ db.connect((err) => {
 });
 
 // ----- Configuración de middleware -----
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 const cors = require('cors');
 app.use(cors());
 
-
 // ----- Rutas para páginas HTML -----
-
-
-app.use(bodyParser.json()); // Agrega esta línea antes de tus rutas
-
 
 // Página de inicio
 app.get('/', (req, res) => {
@@ -93,7 +89,6 @@ app.all('/search', (req, res) => {
         }
     });
 });
-
 
 // Renderizar resultados de búsqueda
 app.get('/search-results', (req, res) => {
@@ -211,13 +206,48 @@ app.get('/files.html/data', (req, res) => {
 
 // ----- Funcionalidades relacionadas con la inserción de nuevos datos -----
 
+app.post('/guardarDatos', (req, res) => {
+    try {
+        const {
+            nombrePropietario,
+            tipoActualizacion,
+            claveCatastral,
+            localidad,
+            estado,
+            entregadoPor,
+            recibidoPor,
+            subirExcel,
+            paradero
+        } = req.body;
+
+        const sql = `INSERT INTO fichascatastrales 
+                     (nombrePropietario, tipoActualizacion, claveCatastral, localidad, estado, entregadoPor, recibidoPor, subirExcel, paradero) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+        db.query(sql, [nombrePropietario, tipoActualizacion, claveCatastral, localidad, estado, entregadoPor, recibidoPor, subirExcel, paradero], (err, result) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Error al ingresar los datos en la base de datos.');
+            }
+
+            console.log('Datos ingresados correctamente en la base de datos.');
+            res.status(200).send('Datos ingresados con éxito');
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error al procesar la solicitud');
+    }
+});
+
+
+
 // ----- Funcionalidades relacionadas con la actualización de datos -----
 
 app.post('/actualizarDatos', (req, res) => {
     try {
         const claveBuscada = req.body.claveBuscada;
         console.log('Datos recibidos en el servidor:', req.body);
-        console.log('Valor de claveBuscada antes de la actualización:', claveBuscada);  // Agregamos un log aquí
+        console.log('Valor de claveBuscada antes de la actualización:', claveBuscada);
         const dato_1 = req.body.dato_1;
         const dato_2 = req.body.dato_2;
         const dato_3 = req.body.dato_3;
@@ -247,8 +277,6 @@ app.post('/actualizarDatos', (req, res) => {
         res.status(500).send('Error al procesar la solicitud');
     }
 });
-
-
 
 // ----- Iniciar servidor -----
 app.listen(port, () => {
