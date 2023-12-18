@@ -239,8 +239,6 @@ app.post('/guardarDatos', (req, res) => {
     }
 });
 
-
-
 // ----- Funcionalidades relacionadas con la actualización de datos -----
 
 app.post('/actualizarDatos', (req, res) => {
@@ -276,6 +274,77 @@ app.post('/actualizarDatos', (req, res) => {
         console.error(error);
         res.status(500).send('Error al procesar la solicitud');
     }
+});
+
+// Cambiar el valor de subirExcel solo para una fila específica
+app.post('/excel.html/cambiarSubirExcel', (req, res) => {
+    const claveCatastral = req.body.claveCatastral;
+
+    if (!claveCatastral) {
+        return res.status(400).json({ error: 'La clave catastral es requerida.' });
+    }
+
+    const query = 'UPDATE fichascatastrales SET subirExcel = "SI" WHERE claveCatastral = ? AND subirExcel = "NO"';
+
+    db.query(query, [claveCatastral], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Error al cambiar el valor de subirExcel en la base de datos.' });
+        }
+
+        res.json({ success: true });
+    });
+});
+
+
+
+// Página para exportar datos
+app.get('/export.html/data', (req, res) => {
+    // Lógica para obtener y enviar datos desde tu base de datos a la página export.html
+    db.query('SELECT * FROM fichascatastrales WHERE subirExcel = "SI"', (error, results, fields) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Error al obtener datos de la base de datos.' });
+        }
+        res.json(results);
+    });
+});
+
+
+// ... (código existente)
+
+// ----- Funcionalidades relacionadas con la exportación en export.html -----
+
+// Cambiar el valor de subirExcel a "BORRAR"
+app.post('/export.html/cambiarSubirExcel', (req, res) => {
+    // Lógica para cambiar el valor de SI a BORRAR
+    const query = 'UPDATE fichascatastrales SET subirExcel = "BORRAR" WHERE subirExcel = "SI"';
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Error al cambiar el valor de subirExcel en la base de datos.' });
+        }
+
+        // Devuelve una respuesta exitosa
+        res.json({ success: true });
+    });
+});
+
+// Borrar datos según el valor de subirExcel
+app.post('/export.html/borrarDatos', (req, res) => {
+    // Lógica para borrar todos los datos con el valor "BORRAR" en subirExcel
+    const query = 'DELETE FROM fichascatastrales WHERE subirExcel = "BORRAR"';
+
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: 'Error al borrar datos en la base de datos.' });
+        }
+
+        // Devuelve una respuesta exitosa
+        res.json({ success: true });
+    });
 });
 
 // ----- Iniciar servidor -----

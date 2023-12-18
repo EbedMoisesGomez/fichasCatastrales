@@ -75,69 +75,72 @@ function buscarConEnter(event) {
   }
 
   function editarInformacion() {
-  console.log('Valor de claveBuscada al editar:', claveBuscada);  // Agregamos un log aquí
-    const claveCatastralInput = document.getElementById('claveModificar');
-    const nombrePropietarioInput = document.getElementById('nombrePropietarioModificar');
-    const paraderoInput = document.getElementById('paraderoModificar');
-    const localidadInput = document.getElementById('localidadModificar');
-    const estadoInput = document.getElementById('estadoModificar');
-    const tipoActualizacionInput = document.getElementById('tipoActualizacionModificar');
+  console.log('Valor de claveBuscada al editar:', claveBuscada);
+  const claveCatastralInput = document.getElementById('claveModificar');
+  const nombrePropietarioInput = document.getElementById('nombrePropietarioModificar');
+  const paraderoInput = document.getElementById('paraderoModificar');
+  const localidadInput = document.getElementById('localidadModificar');
+  const estadoInput = document.getElementById('estadoModificar');
+  const tipoActualizacionInput = document.getElementById('tipoActualizacionModificar');
 
-    editando = !editando;
+  editando = !editando;
 
-    if (editando) {
-      claveCatastralInput.removeAttribute('readonly');
-      nombrePropietarioInput.removeAttribute('readonly');
-      paraderoInput.removeAttribute('readonly');
-      localidadInput.removeAttribute('readonly');
-      estadoInput.removeAttribute('readonly');
-      tipoActualizacionInput.removeAttribute('readonly');
+  if (editando) {
+    claveCatastralInput.removeAttribute('readonly');
+    nombrePropietarioInput.removeAttribute('readonly');
+    paraderoInput.removeAttribute('readonly');
+    localidadInput.removeAttribute('readonly');
+    estadoInput.removeAttribute('readonly');
+    tipoActualizacionInput.removeAttribute('readonly');
 
-      const botonEditar = document.getElementById('botonEditar');
-      botonEditar.style.backgroundColor = '#CF3A3A';
-      botonEditar.innerHTML = '<img src="../assets/closeIcon.png" alt="Icono Cerrar Edicion">';
-    } else {
-      const botonEditar = document.getElementById('botonEditar');
-      botonEditar.style.backgroundColor = '#32B54E';
-      botonEditar.innerHTML = '<img src="../assets/pencilIcon.png" alt="Icono Cerrar Edicion">';
-      const claveBuscada = document.getElementById('capturaClaveCatastral').value;
-      const dato_1 = claveCatastralInput.value;
-      const dato_2 = nombrePropietarioInput.value;
-      const dato_3 = paraderoInput.value;
-      const dato_4 = localidadInput.value;
-      const dato_5 = estadoInput.value;
-      const dato_6 = tipoActualizacionInput.value;
+    const botonEditar = document.getElementById('botonEditar');
+    botonEditar.style.backgroundColor = '#CF3A3A';
+    botonEditar.innerHTML = '<img src="../assets/closeIcon.png" alt="Icono Cerrar Edicion">';
+  } else {
+    claveCatastralInput.setAttribute('readonly', 'true');
+    nombrePropietarioInput.setAttribute('readonly', 'true');
+    paraderoInput.setAttribute('readonly', 'true');
+    localidadInput.setAttribute('readonly', 'true');
+    estadoInput.setAttribute('readonly', 'true');
+    tipoActualizacionInput.setAttribute('readonly', 'true');
 
-      // Construir el objeto de datos
-      const datos = {
-        claveBuscada: claveBuscada,
-        dato_1: dato_1,
-        dato_2: dato_2,
-        dato_3: dato_3,
-        dato_4: dato_4,
-        dato_5: dato_5,
-        dato_6: dato_6,
-      };
-      
+    const botonEditar = document.getElementById('botonEditar');
+    botonEditar.style.backgroundColor = '#32B54E';
+    botonEditar.innerHTML = '<img src="../assets/pencilIcon.png" alt="Icono Cerrar Edicion">';
+    
+    // Resto del código para enviar datos al servidor
+    const claveBuscada = document.getElementById('capturaClaveCatastral').value;
+    const dato_1 = claveCatastralInput.value;
+    const dato_2 = nombrePropietarioInput.value;
+    const dato_3 = paraderoInput.value;
+    const dato_4 = localidadInput.value;
+    const dato_5 = estadoInput.value;
+    const dato_6 = tipoActualizacionInput.value;
 
-      fetch('http://localhost:3000/actualizarDatos', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ claveBuscada, dato_1, dato_2, dato_3, dato_4, dato_5, dato_6 }),
-})
+    // Construir el objeto de datos
+    const datos = {
+      claveBuscada: claveBuscada,
+      dato_1: dato_1,
+      dato_2: dato_2,
+      dato_3: dato_3,
+      dato_4: dato_4,
+      dato_5: dato_5,
+      dato_6: dato_6,
+    };
 
+    fetch('http://localhost:3000/actualizarDatos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ claveBuscada, dato_1, dato_2, dato_3, dato_4, dato_5, dato_6 }),
+    });
 
-// Agregamos console.log para rastrear los datos
-console.log('Datos enviados al servidor:', datos);
-    }
+    // Agregamos console.log para rastrear los datos
+    console.log('Datos enviados al servidor:', datos);
   }
+}
 </script>
-
-
-
-    </script>
 </body> 
 
 </html>

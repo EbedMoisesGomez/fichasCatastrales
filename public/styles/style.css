@@ -624,7 +624,18 @@ td > button > img {
 */
 
 
-
+.exportBtnExport {
+    background-color: #32B54E;
+    width: 130px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    border-radius: 20px;
+    font-size: 18px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
 
 .exportBtnExport > img {
     width: 30px;

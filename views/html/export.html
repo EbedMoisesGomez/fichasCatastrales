@@ -10,114 +10,127 @@
 <body>
     <div class="contenedorPadreFiles">
         <div class="contenedorBackHomeAndFilterFiles">
-            <button><img src="../assets/salirIcon.png" alt="Icono de Salir">Inicio</button>
-            <button class="exportBtnExport"><img src="../assets/exportIcon.png" alt="Icono de Exportar"></button>
+            <a href="/home.html"><img src="../assets/salirIcon.png" alt="Icono de Salir"></a>
+            <button class="exportBtnExport" onclick="exportarExcel()">Exportar<img src="../assets/exportIcon.png" alt="Icono de Exportar"></button>
         </div>
-      <div class="contenedorTableFiles">
-        <table class="table table-responsive">
-          <thead>
-            <tr>
-              <th>Nombre Prop.</th>
-              <th>Tipo de Actualizacion</th>
-              <th>Clave Catastral</th>
-              <th>Ubicacion</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Aquí van tus datos, puedes copiar y pegar más filas según sea necesario -->
-            <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-              <tr>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-                <td><span class="spanExport">a</span></td>
-              </tr>
-               </tbody>
-        </table>
-    </div>
+        <div class="contenedorTableFiles">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>N.</th>
+                        <th>Nombre Prop.</th>
+                        <th>Tipo de Actualizacion</th>
+                        <th>Clave Catastral</th>
+                        <th>Ubicacion</th>
+                        <th>Entregado Por</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatos_2">
+                    <!-- Aquí se mostrarán los datos -->
+                </tbody>
+            </table>
+        </div>
       
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+        <script>
+            function actualizarTabla() {
+                var tabla = $('#tablaDatos_2');
+                tabla.empty();
+
+                $.get('/export.html/data', function (data) {
+                    var datosFiltrados = data.filter(function (fila) {
+                        return fila.subirExcel === "SI";
+                    });
+
+                    datosFiltrados.forEach(function (fila, index) {
+                        var nuevaFila = $('<tr></tr>');
+                        var celdas = [index + 1, fila.nombrePropietario, fila.tipoActualizacion, fila.claveCatastral, fila.localidad, fila.entregadoPor];
+
+                        celdas.forEach(function (valor) {
+                            nuevaFila.append('<td>' + valor + '</td>');
+                        });
+
+                        tabla.append(nuevaFila);
+                    });
+                });
+            }
+
+            function exportarExcel() {
+                var workbook = new ExcelJS.Workbook();
+                var worksheet = workbook.addWorksheet('Datos');
+
+                $('#tablaDatos_2 tr').each(function (rowIndex, row) {
+                    var rowData = [];
+                    $(row).find('td').each(function (colIndex, col) {
+                        var valor = parseFloat($(col).text());
+                        rowData.push(isNaN(valor) ? $(col).text() : valor);
+                    });
+                    worksheet.addRow(rowData);
+                });
+
+                var encabezado = ['N.', 'Nombre Propietario', 'Tipo de Actualizacion', 'Clave Catastral', 'Ubicacion', 'Entregado Por'];
+                worksheet.spliceRows(1, 0, encabezado);
+
+                var columnas = [
+                    { key: 'A', width: 4 },  // 'A' en lugar de 'n'
+                    { key: 'B', width: 40 },
+                    { key: 'C', width: 30 },
+                    { key: 'D', width: 14.5 },
+                    { key: 'E', width: 30 },
+                    { key: 'F', width: 17 }
+                ];
+
+                // Aplicar estilos y ancho a las columnas
+                columnas.forEach(columna => {
+                    worksheet.getColumn(columna.key).width = columna.width;
+
+                    worksheet.getColumn(columna.key).eachCell(cell => {
+                        cell.border = {
+                            top: { style: 'thin' },
+                            left: { style: 'thin' },
+                            bottom: { style: 'thin' },
+                            right: { style: 'thin' },
+                        };
+                    });
+                });
+
+                worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFF' }};
+                worksheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: '2F75B5' } };
+
+                workbook.xlsx.writeBuffer().then(function (buffer) {
+                    var blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'exported_data.xlsx';
+                    document.body.appendChild(link);
+
+                    link.click();
+
+                    document.body.removeChild(link);
+
+                    // Cambiamos el valor de "SI" a "BORRAR" después de exportar
+                    $.post('/export.html/cambiarSubirExcel', function (response) {
+                        console.log('Valor cambiado en la base de datos');
+                        borrarDatosYRefrescar(); // Llamamos a la función para borrar después de cambiar
+                    });
+                });
+            }
+
+            function borrarDatosYRefrescar() {
+                $.post('/export.html/borrarDatos', function (response) {
+                    console.log('Datos borrados en la base de datos');
+                    location.reload();
+                });
+            }
+
+            actualizarTabla();
+        </script>
     </div>
 </body>
 </html>
+
