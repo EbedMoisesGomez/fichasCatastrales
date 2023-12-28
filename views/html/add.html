@@ -21,7 +21,11 @@
                     <label for="entregadoPor">Entregado Por</label>
                     <input type="text" autocomplete="off" id="entregadoPor" name="entregadoPor" required>
                     <label for="estado">Estado</label>
-                    <input type="text" autocomplete="off" id="estado" name="estado" required>
+                    <select id="estado" name="estado" required>
+                        <option value="NO SUBIDA">NO SUBIDA</option>
+                        <option value="SUBIDA">SUBIDA</option>
+                        <option value="INCONSISTENCIA">INCONSISTENCIA</option>
+                    </select>
                 </div>
                 <div class="formAdd_2">
                     <label for="tipoActualizacion">Tipo de Actualizacion</label>
@@ -29,7 +33,9 @@
                     <label for="localidad">Ubicacion</label>
                     <input type="text" autocomplete="off" id="localidad" name="localidad" required>
                     <label for="recibidoPor">Recibido Por</label>
-                    <input type="text" autocomplete="off" id="recibidoPor" name="recibidoPor" required>
+                    <select id="recibidoPor" name="estado" required>
+                        <option value="COMPUTO">COMPUTO</option>
+                    </select>
                     <button type="submit">Agregar<img src="../assets/entrarIcon.png" alt="Icono para Enviar"></button>
                 </div>
             </form>

@@ -48,7 +48,7 @@
 
                     datosFiltrados.forEach(function (fila, index) {
                         var nuevaFila = $('<tr></tr>');
-                        var celdas = [index + 1, fila.nombrePropietario, fila.tipoActualizacion, fila.claveCatastral, fila.localidad, fila.entregadoPor];
+                        var celdas = [index + 1, fila.nombrePropietario, fila.tipoActualizacion, fila.claveCatastral, fila.localidad, fila.recibidoPor];
 
                         celdas.forEach(function (valor) {
                             nuevaFila.append('<td>' + valor + '</td>');
